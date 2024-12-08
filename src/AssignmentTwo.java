@@ -80,5 +80,109 @@ public class AssignmentTwo {
         rollerCoaster.printQueue();
     }
 
+    /**
+     * Create and return a new Employee object.
+     *
+     * @param name The name of the employee
+     * @param age The age of the employee
+     * @param gender The gender of the employee
+     * @param id The ID of the employee
+     * @param role The role of the employee
+     * @return A new Employee object
+     */
+    private Employee createOperator(String name, int age, String gender, String id, String role) {
+        return new Employee(name, age, gender, id, role);
+    }
 
+    /**
+     * Create and return a new Ride object.
+     *
+     * @param name The name of the ride
+     * @param capacity The capacity of the ride
+     * @param operator The employee operating the ride
+     * @return A new Ride object
+     */
+    private Ride createRide(String name, int capacity, Employee operator) {
+        return new Ride(name, capacity, operator);
+    }
+
+    /**
+     * Add a list of visitors to the queue.
+     *
+     * @param ride The ride object
+     */
+    private void addVisitorsToQueue(Ride ride) {
+        Visitor[] visitors = {
+                new Visitor("Tom", 25, "Male", "V101", 000),
+                new Visitor("Sherly", 22, "Female", "V102", 999),
+                new Visitor("Ben", 28, "Male", "V103", 6777),
+                new Visitor("David", 24, "Female", "V104", 868),
+                new Visitor("Jack", 30, "Male", "V105", 456654),
+                new Visitor("Lee", 30, "Female", "V106", 645645),
+                new Visitor("Jack", 25, "Male", "V107", 654654),
+                new Visitor("Sharon", 22, "Female", "V108", 65465463),
+                new Visitor("Benny", 28, "Male", "V109", 635634),
+                new Visitor("Leo", 24, "Female", "V110", 63463546),
+                new Visitor("Nehemia", 30, "Male", "V111", 634565436)
+        };
+        for (Visitor visitor : visitors) {
+            ride.addVisitorToQueue(visitor);
+        }
+    }
+
+    /**
+     * Add visitors to the ride history.
+     *
+     * @param ride The ride object
+     */
+    private void addVisitorsToHistory(Ride ride) {
+        Visitor[] visitors = {
+                new Visitor("Jack", 25, "Male", "V101", 33333),
+                new Visitor("Sharon", 22, "Female", "V102", 2222),
+                new Visitor("Benny", 28, "Male", "V103", 22),
+                new Visitor("Leo", 24, "Female", "V104", 333),
+                new Visitor("Nehemia", 30, "Male", "V105", 4444)
+        };
+        for (Visitor visitor : visitors) {
+            ride.addVisitorToHistory(visitor);
+        }
+    }
+
+    /**
+     * Print the queue before and after running the cycle.
+     *
+     * @param ride The ride object
+     */
+    private void printQueueBeforeAfterCycle(Ride ride) {
+        System.out.println("Visitors in queue before the cycle:");
+        ride.printQueue();
+
+        // Run a cycle and print updated queue
+        ride.runOneCycle();
+
+        System.out.sprintln("Visitors in queue after the cycle:");
+        ride.printQueue();
+    }
+
+
+    /**
+     * Print ride history details: the total number of visitors and all the visitors.
+     *
+     * @param ride The ride object
+     */
+    private void printRideHistoryDetails(Ride ride) {
+        System.out.println("Total visitors in ride history: " + ride.numberOfVisitors());
+        ride.printRideHistory();
+    }
+
+    /**
+     * Print ride queue details: the total number of visitors and all the visitors.
+     *
+     * @param ride The ride object
+     */
+    private void printRideQueueDetails(Ride ride) {
+        System.out.println("The number of Visitors: " + ride.getSizeOfVisitorQueue() + "\n");
+        System.out.println("All Visitors:");
+        ride.printQueue();
+    }
 }

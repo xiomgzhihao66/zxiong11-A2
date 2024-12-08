@@ -68,5 +68,94 @@ public class Ride implements RideInterface {
         return visitorQueue.size();
     }
 
+    // Queue-related methods
+    @Override
+    public void addVisitorToQueue(Visitor visitor) {
+        visitorQueue.add(visitor);
+        System.out.println(visitor.getName() + " has successfully joined the queue for " + rideName + ".");
+    }
+
+    @Override
+    public void removeVisitorFromQueue() {
+        Visitor removedVisitor = visitorQueue.poll();  // Remove the first visitor in the queue
+        if (removedVisitor != null) {
+            System.out.println(removedVisitor.getName() + " has been removed from the queue for " + rideName + ".");
+        } else {
+            System.out.println("Queue for " + rideName + " is currently empty. No visitor to remove.");
+        }
+    }
+
+    @Override
+    public void printQueue() {
+        if (visitorQueue.isEmpty()) {
+            System.out.println("No visitors are currently in the queue for " + rideName + ".");
+        } else {
+            System.out.println("List of visitors in the queue for " + rideName + ":");
+            for (Visitor visitor : visitorQueue) {
+                System.out.println("- " + visitor.getName() + " (Age: " + visitor.getAge() + ")" + " (Gender: " + visitor.getGender() + ")");
+            }
+        }
+    }
+
+    @Override
+    public void runOneCycle() {
+        // Check if an operator is assigned
+        if (operator == null) {
+            System.out.println("Error: Ride " + rideName + " cannot be run. No operator assigned.");
+            return;
+        }
+
+        // Check if the queue is empty
+        if (visitorQueue.isEmpty()) {
+            System.out.println("Error: Ride " + rideName + " cannot be run. Queue is empty.");
+            return;
+        }
+
+        // Run the ride
+        int riders = 0;
+        System.out.println("Starting one cycle of " + rideName + "...");
+        while (riders < maxRiders && !visitorQueue.isEmpty()) {
+            Visitor visitor = visitorQueue.poll();
+            if (visitor != null) {
+                addVisitorToHistory(visitor);
+                System.out.println(visitor.getName() + " is now enjoying the ride " + rideName + ".");
+                riders++;
+            }
+        }
+
+        // Increment the number of cycles
+        numOfCycles++;
+        System.out.println("Cycle completed! Total cycles run for " + rideName + ": " + numOfCycles);
+    }
+
+    @Override
+    public void addVisitorToHistory(Visitor visitor) {
+        rideHistory.add(visitor);
+        System.out.println(visitor.getName() + " has been added to the history of " + rideName + ".");
+    }
+
+    @Override
+    public boolean checkVisitorFromHistory(Visitor visitor) {
+        boolean found = rideHistory.contains(visitor);
+        System.out.println(visitor.getName() + " is " + (found ? "" : "not ") + "in the history of " + rideName + ".");
+        return found;
+    }
+
+    @Override
+    public int numberOfVisitors() {
+        return rideHistory.size();
+    }
+
+    @Override
+    public void printRideHistory() {
+        if (rideHistory.isEmpty()) {
+            System.out.println("No visitors have ridden " + rideName + " yet.");
+        } else {
+            System.out.println("List of visitors in the history of " + rideName + ":");
+            for (Visitor visitor : rideHistory) {
+                System.out.println("- " + visitor.getName() + " (Age: " + visitor.getAge() + ")");
+            }
+        }
+    }
 
 }
