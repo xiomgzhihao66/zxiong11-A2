@@ -141,6 +141,12 @@ public class Ride implements RideInterface {
         return found;
     }
 
+    // Sort the ride history
+    public void sortRideHistory() {
+        Collections.sort(rideHistory, new VisitorComparator());
+        System.out.println("Ride history for " + rideName + " has been sorted.");
+    }
+
     @Override
     public int numberOfVisitors() {
         return rideHistory.size();

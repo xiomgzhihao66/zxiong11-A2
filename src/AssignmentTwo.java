@@ -34,12 +34,7 @@ public class AssignmentTwo {
      * Part 7 implementation: Import ride history from CSV and print the queue.
      */
     public void partSeven() {
-        Employee operator = createOperator("Alice", 35, "Female", "E101", "Ride Operator");
-        Ride rollerCoaster = createRide("Roller Coaster", 2, operator);
 
-        // Import and display the ride history
-        rollerCoaster.importRideHistory("exportFile.csv");
-        printRideQueueDetails(rollerCoaster);
     }
 
     /**
@@ -53,14 +48,28 @@ public class AssignmentTwo {
      * Part 5 implementation: Run a cycle on the roller coaster and print details.
      */
     public void partFive() {
+        Employee operator = createOperator("Bob", 40, "Male", "E102", "Ride Operator");
+        Ride rollerCoaster = createRide("Roller Coaster", 2, operator);
 
+        // Add visitors to the queue
+        addVisitorsToQueue(rollerCoaster);
+
+        // Print queue before and after the cycle
+        printQueueBeforeAfterCycle(rollerCoaster);
     }
 
     /**
      * Part 4B implementation: Sort ride history and print it.
      */
     public void partFourB() {
+        Employee operator = createOperator("Bob", 40, "Male", "E102", "Ride Operator");
+        Ride thunderStorm = createRide("Thunderstorm", 4, operator);
 
+        // Add visitors to the ride history
+        addVisitorsToHistory(thunderStorm);
+
+        // Print ride history before and after sorting
+        printRideHistoryBeforeAfterSorting(thunderStorm);
     }
 
     /**
@@ -173,10 +182,24 @@ public class AssignmentTwo {
         // Run a cycle and print updated queue
         ride.runOneCycle();
 
-        System.out.sprintln("Visitors in queue after the cycle:");
+        System.out.println("Visitors in queue after the cycle:");
         ride.printQueue();
     }
 
+    /**
+     * Print the ride history before and after sorting.
+     *
+     * @param ride The ride object
+     */
+    private void printRideHistoryBeforeAfterSorting(Ride ride) {
+        System.out.println("Before sorting:");
+        ride.printRideHistory();
+
+        ride.sortRideHistory();
+
+        System.out.println("After sorting:");
+        ride.printRideHistory();
+    }
 
     /**
      * Print ride history details: the total number of visitors and all the visitors.
