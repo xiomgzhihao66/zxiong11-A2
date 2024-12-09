@@ -34,14 +34,27 @@ public class AssignmentTwo {
      * Part 7 implementation: Import ride history from CSV and print the queue.
      */
     public void partSeven() {
+        Employee operator = createOperator("Alice", 35, "Female", "E101", "Ride Operator");
+        Ride rollerCoaster = createRide("Roller Coaster", 2, operator);
 
+        // Import and display the ride history
+        rollerCoaster.importRideHistory("exportFile.csv");
+        printRideQueueDetails(rollerCoaster);
     }
 
     /**
      * Part 6 implementation: Add visitors and export ride history to a CSV file.
      */
     public void partSix() {
+        Employee operator = createOperator("Alice", 35, "Female", "E101", "Ride Operator");
+        Ride rollerCoaster = createRide("Roller Coaster", 2, operator);
 
+        // Add visitors
+        addVisitorsToHistory(rollerCoaster);
+
+        // Export the ride history to a CSV file
+        String filename = "exportFile.csv";
+        rollerCoaster.exportRideHistory(filename);
     }
 
     /**

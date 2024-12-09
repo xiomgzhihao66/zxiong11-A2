@@ -141,12 +141,6 @@ public class Ride implements RideInterface {
         return found;
     }
 
-    // Sort the ride history
-    public void sortRideHistory() {
-        Collections.sort(rideHistory, new VisitorComparator());
-        System.out.println("Ride history for " + rideName + " has been sorted.");
-    }
-
     @Override
     public int numberOfVisitors() {
         return rideHistory.size();
@@ -164,4 +158,48 @@ public class Ride implements RideInterface {
         }
     }
 
+    // Sort the ride history
+    public void sortRideHistory() {
+        Collections.sort(rideHistory, new VisitorComparator());
+        System.out.println("Ride history for " + rideName + " has been sorted.");
+    }
+
+    // Export Ride History to a file
+    public void exportRideHistory(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Visitor visitor : rideHistory) {
+                writer.write(visitor.getName() + "," + visitor.getAge() + "," + visitor.getGender() + "," + visitor.getTicketId() + "," + visitor.getMembershipId() + "\n");
+            }
+            System.out.println("Ride history has been successfully exported to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error occurred while exporting ride history: " + e.getMessage());
+        }
+    }
+
+    // Import Ride History from a file
+    public void importRideHistory(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 5) {
+                    String name = data[0];
+                    int age = Integer.parseInt(data[1]);
+                    String gender = data[2];
+                    String ticketId = data[3];
+                    int membershipId = Integer.parseInt(data[4]);
+
+                    Visitor visitor = new Visitor(name, age, gender, ticketId, membershipId);
+                    visitorQueue.add(visitor);
+                }
+            }
+            System.out.println("Ride history has been successfully imported from " + filename);
+        } catch (IOException e) {
+            System.out.println("Error occurred while importing ride history: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format in the file: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error occurred: " + e.getMessage());
+        }
+    }
 }
